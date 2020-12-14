@@ -15,36 +15,33 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "student")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Student {
 	@Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column
 	private String userName;
-	@Column
 	private String firstName;
-	@Column
 	private String lastName;
-	@Column
 	private String email;
-	@Column
 	private String phoneNo;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JsonBackReference
-	@ManyToMany(fetch = FetchType.EAGER,mappedBy = "students",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,})
-//	@JoinTable(name = "student_course",joinColumns = @JoinColumn(name = "student_id"),inverseJoinColumns = @JoinColumn(name = "course_id"))
-	List<Course>courses;
-	
-	@ManyToMany(cascade = CascadeType.ALL, targetEntity = TestResult.class)
-	@JoinColumn(name = "STUDENT_ID")
-	TestResult testResult;
+	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(name = "student_course",joinColumns = @JoinColumn(name = "student_id"),inverseJoinColumns = @JoinColumn(name = "course_id"))
+	List<Course> courses;
 	
 	public Student() {}
+	
+	public Student(int id) {
+		this.id = id;
+	}
 	
 	public Student(String userName, String firstName, String lastName, String email, String phoneNo) {
 
@@ -93,17 +90,6 @@ public class Student {
 		this.phoneNo = phoneNo;
 	}
 	
-	
-
-	public List<Course> getCourses() {
-		return courses;
-	}
-
-	public void setCourses(Course courses) {
-		this.courses.add(courses);
-	}
-	
-
 	public void deleteCourse(Course course)
 	{
 		boolean flag=false;
@@ -127,6 +113,14 @@ public class Student {
 	public String toString() {
 		return "Student [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", email=" + email + ", phoneNo=" + phoneNo+ "]";
+	}
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
 	}
 
 }

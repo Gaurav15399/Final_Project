@@ -1,6 +1,5 @@
 package com.spring_project.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,44 +12,39 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "TEST_RESULT")
-public class TestResult {
+@Table(name = "TEST_QUESTION")
+public class TestQuestion {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
-	private int marks;
-	
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@ManyToOne(targetEntity = Test.class,fetch = FetchType.LAZY)
-	@JoinColumn(name = "TEST_ID", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY,targetEntity = Test.class)
+	@JoinColumn(name = "TEST_ID")
 	private Test test;
-
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@ManyToOne(targetEntity = Student.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "STUDENT_ID",nullable = false)
-	private Student student;
 	
-	public TestResult() {
+	
+	@ManyToOne(fetch = FetchType.LAZY,targetEntity = Question.class)
+	@JoinColumn(name = "QUESTION_ID")
+	private Question questions;
+
+	public TestQuestion() {
 		super();
 	}
 
+	public TestQuestion(Test test,Question question) {
+		super();
+		this.test = test;
+		this.questions = question;
+	}
+	
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getMarks() {
-		return marks;
-	}
-
-	public void setMarks(int marks) {
-		this.marks = marks;
 	}
 
 	public Test getTest() {
@@ -61,12 +55,17 @@ public class TestResult {
 		this.test = test;
 	}
 
-	public Student getStudent() {
-		return student;
+	public Question getQuestions() {
+		return questions;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setQuestions(Question questions) {
+		this.questions = questions;
+	}
+
+	@Override
+	public String toString() {
+		return "TestQuestion [id=" + id + ", questions=" + questions + "]";
 	}
 
 }

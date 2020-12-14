@@ -1,15 +1,14 @@
 package com.spring_project.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "options")
@@ -20,17 +19,13 @@ public class Option {
 	@Column
 	private int id;
 	
-	
-	@Column
 	private String optionValue;
 	
-	@Column
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private int answer;
-
-	
-	
 	
 	public Option() {}
+	
 	public Option(String optionValue, int answer) {
 		
 		this.optionValue = optionValue;
@@ -57,11 +52,10 @@ public class Option {
 	public void setAnswer(int answer) {
 		this.answer=answer;
 	}
-	
 
-
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Option [id=" + id + ", optionValue=" + optionValue + ", answer=" + answer + "]";
+	}
 
 }

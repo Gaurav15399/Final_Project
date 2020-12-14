@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring_project.dao.TeacherDao;
-import com.spring_project.entity.Course;
-import com.spring_project.entity.Question;
 import com.spring_project.entity.Student;
 import com.spring_project.entity.Teacher;
 
@@ -69,35 +67,4 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherDao.getCourseStudents(teacherId,courseId);
 	}
 
-	@Override
-	@Transactional
-	public void addQuestion(Question theQuestion) {
-		// TODO Auto-generated method stub
-		teacherDao.addQuestion(theQuestion);
-	}
-
-	
-	@Override
-	@Transactional
-	public List<Question> getQuestions() {
-		return teacherDao.getQuestions();
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	@Transactional
-	public void deleteQuestion(int questionId) {
-		// TODO Auto-generated method stub
-		teacherDao.deleteQuestion( questionId);
-	}
-
-	@Override
-	@Transactional
-	public List<Question> getCourseQuestions(int courseId) {
-		// TODO Auto-generated method stub
-		return teacherDao.getCourseQuestions(courseId);
-	}
-
-	
 }

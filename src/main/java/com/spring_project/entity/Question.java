@@ -10,27 +10,38 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "question")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Question {
-	@Column
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column
 	private String questionValue;
-	@Column
-	private int courseId;
-	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Course.class)
+	@JoinColumn(name ="courseId")
+	private Course course;
+
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name ="qid")
 	private List<Option> options;
-	
-	
+
+
 	public Question() {
-		
+
+	}
+
+	public Question(int id) {
+		this.id = id;
 	}
 
 	public int getId() {
@@ -47,7 +58,6 @@ public class Question {
 
 	public void setQuestionValue(String questionValue,int courseId) {
 		this.questionValue = questionValue;
-		this.courseId=courseId;
 	}
 
 	public List<Option> getOptions() {
@@ -69,12 +79,17 @@ public class Question {
 		return "Question [id=" + id + ", questionValue=" + questionValue + ", options=" + options + "]";
 	}
 
-	public int getCourseId() {
-		return courseId;
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
-	
+
+	public void setQuestionValue(String questionValue) {
+		this.questionValue = questionValue;
+	}
+
+
 }

@@ -5,47 +5,34 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "course")
 public class Course {
 
-	@Column
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(name = "courseName")
 	private String name;
-
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JsonBackReference(value = "student_course")
-	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinTable(name = "student_course" ,joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+	@ManyToMany(mappedBy = "courses",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	List <Student> students;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JsonBackReference(value = "teacher_course")
-	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinTable(name = "teacher_course" ,joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "teacher_id"))
+	@ManyToMany(mappedBy = "courses",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	List <Teacher> teachers;
-	
-	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)	
-	@JoinColumn(name ="courseId")
-	List<Question> question;
-	
-	@OneToMany(targetEntity = Test.class, fetch = FetchType.LAZY,cascade = CascadeType.ALL)	
-	@JoinColumn(name ="courseId")
-	List<Test> test;
 	
 	public Course() {}
 	
@@ -88,9 +75,9 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", name=" + name + ", students=" + students + ", teachers=" + teachers + "]";
+		return "Course [id=" + id + ", name=" + name + 
+				", students=" + students + ", teachers=" + teachers + 
+				"]";
 	}
-
-	
 	
 }

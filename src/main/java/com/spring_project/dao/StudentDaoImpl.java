@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.spring_project.entity.Course;
 import com.spring_project.entity.Student;
-import com.spring_project.entity.Teacher;
 
 @Repository
 public class StudentDaoImpl implements StudentDao {
@@ -22,7 +21,6 @@ public class StudentDaoImpl implements StudentDao {
 	public void saveStudent(Student theStudent) {
 		Session session=sessionFactory.getCurrentSession();
 		session.saveOrUpdate(theStudent);
-
 	}
 
 	@Override
@@ -42,19 +40,6 @@ public class StudentDaoImpl implements StudentDao {
 		
 	
 	}
-
-	@Override
-	public void addStudentCourse(int studentId, int courseId) {
-		// TODO Auto-generated method stub
-		Session session=sessionFactory.getCurrentSession();
-		Student theStudent = session.get(Student.class,studentId);
-		Course theCourse=session.get(Course.class, courseId);
-		theStudent.setCourses(theCourse);
-		System.out.println(theStudent.getCourses());
-		
-		
-	}
-
 
 	@Override
 	public void deleteStudentCourse(int studentId, int courseId) {

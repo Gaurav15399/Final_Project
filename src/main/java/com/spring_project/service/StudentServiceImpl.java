@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring_project.dao.StudentDao;
-import com.spring_project.entity.Course;
 import com.spring_project.entity.Student;
 
 @Service
@@ -39,17 +38,11 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	@Transactional
-	public void addStudentCourse(int studentId, int courseId) {
-		// TODO Auto-generated method stub
-		studentDao.addStudentCourse(studentId,courseId);
-	}
-
-	@Override
-	@Transactional
 	public void deleteStudentCourse(int studentId, int courseId) {
 		// TODO Auto-generated method stub
 		studentDao.deleteStudentCourse(studentId,courseId);
 	}
+
 
 
 }

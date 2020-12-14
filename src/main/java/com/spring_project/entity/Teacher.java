@@ -15,7 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "teacher")
@@ -35,8 +35,9 @@ public class Teacher {
 	@Column
 	private String phoneNo;
 
+	@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler"})
 	@JsonBackReference
-	@ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinTable(name = "teacher_course",joinColumns = @JoinColumn(name="teacher_id"),inverseJoinColumns = @JoinColumn(name="course_id"))
 	List<Course> courses;
 
@@ -93,10 +94,9 @@ public class Teacher {
 		return courses;
 	}
 
-	public void setCourses(Course course) {
-		this.courses.add(course);
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
 	}
-
 	public void deleteCourse(Course course)
 	{
 		boolean flag=false;

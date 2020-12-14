@@ -2,6 +2,8 @@ package com.spring_project.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ public class CourseDaoImpl implements CourseDao {
 
 	@Autowired
 	SessionFactory sessionFactory;
+	
+	@Autowired
+	EntityManager entityManager;
 	
 	@Override
 	public void addCourse(Course theCourse) {
@@ -36,8 +41,8 @@ public class CourseDaoImpl implements CourseDao {
 	@Override
 	public List<Course> showCourses() {
 		// TODO Auto-generated method stub
-		Session session=sessionFactory.getCurrentSession();
-		List<Course>courses=session.createQuery("from Course",Course.class).getResultList();
+		
+		List<Course>courses=entityManager.createQuery("from Course",Course.class).getResultList();
 		return courses;
 		}
 
