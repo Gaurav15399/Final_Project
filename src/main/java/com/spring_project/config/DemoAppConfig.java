@@ -58,6 +58,7 @@ public class DemoAppConfig extends WebMvcConfigurerAdapter implements WebMvcConf
     }
 	
 	// define a bean for ViewResolver
+	
 	@Bean
     public Docket api() { 
         return new Docket(DocumentationType.SWAGGER_2)  
