@@ -47,8 +47,8 @@ public class StudentDaoImpl implements StudentDao {
 		Session session=sessionFactory.getCurrentSession();
 		Course mycourse=session.get(Course.class, courseId);
 		Student theStudent=session.get(Student.class, studentId);
-		theStudent.deleteCourse(mycourse);
-		System.out.println(theStudent.getCourses());
+		theStudent.getCourses().remove(mycourse);
+		
 	}
 
 	

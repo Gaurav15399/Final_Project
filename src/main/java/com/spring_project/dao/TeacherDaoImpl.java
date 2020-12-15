@@ -64,8 +64,7 @@ public class TeacherDaoImpl implements TeacherDao {
 		Session session=sessionFactory.getCurrentSession();
 		Course mycourse=session.get(Course.class, courseId);
 		Teacher theTeacher=session.get(Teacher.class, teacherId);
-		theTeacher.deleteCourse(mycourse);
-		System.out.println(theTeacher.getCourses());
+		theTeacher.getCourses().remove(mycourse);
 	}
 
 	@Override
