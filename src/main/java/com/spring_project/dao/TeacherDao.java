@@ -12,8 +12,6 @@ public interface TeacherDao {
 
 	public void deleteTeacher(int teacherId);
 
-	public void addTeacherCourse(int teacherId, int courseId);
-
 	public void deleteTeacherCourse(int teacherId, int courseId);
 
 	public List<Student> getCourseStudents(int teacherId, int courseId);

@@ -89,25 +89,6 @@ public class Student {
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
-	
-	public void deleteCourse(Course course)
-	{
-		boolean flag=false;
-		int i=0;
-		for(Course temp:courses)
-		{
-			if(temp==course)
-			{
-				flag=true;
-				break;
-			}
-		}
-		if(flag==true)
-		{
-			courses.remove(i);
-			
-		}
-	}
 
 	@Override
 	public String toString() {

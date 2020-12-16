@@ -13,8 +13,6 @@ public interface TeacherService {
 
 	public void deleteTeacher(int teacherId);
 
-	public void addTeacherCourse(int teacherId, int courseId);
-
 	public void deleteTeacherCourse(int teacherId, int courseId);
 
 	public void deleteStudentCourse(int studentId, int courseId);

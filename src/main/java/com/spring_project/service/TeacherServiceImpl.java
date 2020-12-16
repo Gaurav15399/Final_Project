@@ -39,13 +39,6 @@ public class TeacherServiceImpl implements TeacherService {
 		
 	}
 
-	@Override
-	@Transactional
-	public void addTeacherCourse(int teacherId, int courseId) {
-		// TODO Auto-generated method stub
-		teacherDao.addTeacherCourse(teacherId,courseId);
-		
-	}
 
 	@Override
 	@Transactional

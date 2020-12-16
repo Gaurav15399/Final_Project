@@ -47,20 +47,11 @@ public class TeacherDaoImpl implements TeacherDao {
 		
 	}
 
-	@Override
-	public void addTeacherCourse(int teacherId, int courseId) {
-		
-		// TODO Auto-generated method stub
-		Session session=sessionFactory.getCurrentSession();
-		Course mycourse=session.get(Course.class, courseId);
-		Teacher theTeacher=session.get(Teacher.class, teacherId);
-//		theTeacher.setCourses(mycourse);
-		System.out.println(theTeacher.getCourses());
-	}
+	
 
 	@Override
 	public void deleteTeacherCourse(int teacherId, int courseId) {
-		// TODO Auto-generated method stub
+
 		Session session=sessionFactory.getCurrentSession();
 		Course mycourse=session.get(Course.class, courseId);
 		Teacher theTeacher=session.get(Teacher.class, teacherId);
@@ -70,8 +61,8 @@ public class TeacherDaoImpl implements TeacherDao {
 	@Override
 	public List<Student> getCourseStudents(int teacherId, int courseId) {
 		Teacher theTeacher=entityManager.find(Teacher.class, teacherId);
-		List<Student> students = theTeacher.getCourses().stream().filter(c->c.getId() == courseId).map(c->c.getStudents()).findFirst().get();		
-		return students;
+		Course mycourse=entityManager.find(Course.class, courseId);
+		return 	mycourse.getStudents();
 
 	}
 }

@@ -97,24 +97,7 @@ public class Teacher {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
-	public void deleteCourse(Course course)
-	{
-		boolean flag=false;
-		int i=0;
-		for(Course temp:courses)
-		{
-			if(temp==course)
-			{
-				flag=true;
-				break;
-			}
-		}
-		if(flag==true)
-		{
-			courses.remove(i);
-			
-		}
-	}
+	
 
 	@Override
 	public String toString() {
